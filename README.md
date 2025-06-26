@@ -1,29 +1,71 @@
 # 🔍 Pyth Hermes Decoder – TypeScript Project
 
-This TypeScript project interacts with the [Pyth Network](https://pyth.network) to fetch and decode real-time price feed updates from their [Hermes API](https://hermes.pyth.network). It converts raw binary (hex) calldata into human-readable JSON price data, and can re-encode a selected subset of price updates for custom broadcasting or relaying.
+A powerful TypeScript project that interacts with the [Pyth Network](https://pyth.network) to fetch and decode real-time price feed updates from their [Hermes API](https://docs.pyth.network/price-feeds). This tool converts raw binary (hex) calldata into human-readable JSON price data and enables re-encoding of selected price update subsets for custom broadcasting or relaying.
 
 ---
 
-## 📦 Features
+## 🚀 Features
 
-- ✅ Fetch latest price feed data from Hermes (Pyth)
-- 🔍 Decode binary (hex) data into human-readable JSON
-- ✂️ Slice updates and re-encode a subset (e.g., only first 5 tokens)
-- 🧩 Fully modular and typed using TypeScript
-- ⚡ Uses efficient buffer parsing with `Buffer` and `bn.js`
+- ✅ **Real-time Data Fetching** - Retrieve latest price feed data from Hermes (Pyth Network)
+- 🔍 **Binary Decoding** - Convert raw hex data into structured JSON format
+- ✂️ **Selective Processing** - Slice and re-encode subsets of updates (e.g., first 5 tokens)
+- ⚡ **Efficient Parsing** - Optimized buffer processing using `Buffer` and `bn.js`
+- 📊 **Type Safety** - Complete TypeScript definitions for all data structures
 
 ---
 
 ## 📁 Project Structure
 
+```
+src/
+├── index.ts                 # Entry point – fetch, decode, slice, and log
+├── types/
+│   └── PriceFeed.ts        # TypeScript interfaces for decoded price data
+└── utils/
+    ├── constants.ts        # Configuration constants (headers, sizes, versions)
+    └── parsers.ts          # Core decoding logic for Hermes binary data
+```
+
 ---
 
-## 🛠️ Setup
+## 🛠️ Setup & Installation
+
+### Prerequisites
+
+- Node.js (v16 or higher)
 
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/pyth-hermes-decoder.git
-cd pyth-hermes-decoder
+git clone https://github.com/007aryansaini/pyth-decode-encode.git
+cd pyth-decode-encode
+```
+
+### 2. Install Dependencies
+
+```bash
+npm install
+```
+
+### 3. Run the Application
+
+```bash
+npm run dev
+```
+
+---
+
+## 📚 Resources
+
+- [Pyth Network Documentation](https://docs.pyth.network/price-feeds)
+- [Hermes API Reference](https://docs.pyth.network/price-feeds/fetch-price-updates)
 
 
+---
+
+
+## 👨‍💻 Author
+
+**Aryan Saini** - [@007aryansaini](https://github.com/007aryansaini)
+
+---
