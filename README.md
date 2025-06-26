@@ -17,6 +17,7 @@ A powerful TypeScript project that interacts with the [Pyth Network](https://pyt
 ## 📁 Project Structure
 
 ```
+├── ABI/pythContractABI.json  # ABI of pyth contract
 src/
 ├── index.ts                 # Entry point – fetch, decode, slice, and log
 ├── types/
@@ -47,11 +48,24 @@ cd pyth-decode-encode
 npm install
 ```
 
-### 3. Run the Application
+### 3. Environment Configuration
+
+```bash
+PVT_KEY=""
+ALCHEMY_KEY=""
+```
+
+### 4. Run the Application
 
 ```bash
 npm run dev
 ```
+
+
+### Sample Output
+The application will fetch, decode, and process Pyth price feed data. Example transaction on Polygon:
+- [TX Hash - 0x78a31c63dcea47028d1d8776f16d5065e9c1be962fea5acfd405c45a186beeb4](https://polygonscan.com/tx/0x78a31c63dcea47028d1d8776f16d5065e9c1be962fea5acfd405c45a186beeb4)
+
 
 ---
 
