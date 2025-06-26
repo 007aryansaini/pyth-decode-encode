@@ -1,5 +1,11 @@
 import { HermesClient } from '@pythnetwork/hermes-client'
+import {configDotenv}  from 'dotenv'
+import { ethers } from 'ethers'
 import { decodeHermesHexData, sliceAccumulatorBinary } from './utils/parsers'
+import {BLOCKCHAIN_BASE_RPC, CONTRACT_ADDRESS} from "./utils/constants"
+import PYTH_ABI from "./../ABI/pythContractABI.json"
+configDotenv();
+
 
 async function main(): Promise<void> {
   const connection = new HermesClient('https://hermes.pyth.network', {})
@@ -38,6 +44,61 @@ async function main(): Promise<void> {
 
   const decodedFiveTokens = decodeHermesHexData(slicedHex)
   console.log('Decoded First 5 Token Prices:', decodedFiveTokens)
+
+
+  // Making Tx 
+  const RPC_URL = `${BLOCKCHAIN_BASE_RPC}${process.env.ALCHEMY_KEY}`
+  const PRIVATE_KEY = process.env.PVT_KEY 
+
+   try{
+
+    if (!PRIVATE_KEY) {
+      console.error('Please set your PVT_KEY environment variable')
+      process.exit(1)
+    }
+
+    const provider = new ethers.JsonRpcProvider(RPC_URL)
+    const wallet = new ethers.Wallet(PRIVATE_KEY, provider)
+
+    const pythContract = new ethers.Contract(
+      CONTRACT_ADDRESS,
+      PYTH_ABI,
+      wallet
+    )
+
+    console.log('Connected to Pyth contract at:', pythContract.target)
+    console.log('Wallet address:', wallet.address)
+
+    const updateData = ['0x' + slicedHex ]
+    const updateFee = await pythContract.getUpdateFee(updateData)
+    console.log('Update fee required:', ethers.formatEther(updateFee), 'ETH')
+
+    const balance = await provider.getBalance(wallet.address)
+    console.log('Wallet balance:', ethers.formatEther(balance), 'ETH')
+
+    if (balance < updateFee) {
+      throw new Error('Insufficient balance to pay update fee')
+    }
+   
+    const gasEstimate = await pythContract.updatePriceFeeds.estimateGas(updateData, {
+        value: updateFee
+      })
+    console.log('Estimated gas for the tx:', gasEstimate.toString())
+
+    const tx = await pythContract.updatePriceFeeds(updateData, {
+      value: updateFee
+    })
+
+    console.log('Transaction submitted! Hash:', tx.hash)
+    console.log('Waiting for confirmation...')
+    const receipt = await tx.wait()
+    console.log('Transaction confirmed! Block number:', receipt.blockNumber)
+    console.log('Gas used:', receipt.gasUsed.toString())
+
+  }catch(error){
+    console.log(error)
+   }
+
   
 }
 

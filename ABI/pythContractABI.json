@@ -1,0 +1,6 @@
+[
+    "function updatePriceFeeds(bytes[] calldata updateData) external payable",
+    "function getUpdateFee(bytes[] calldata updateData) external view returns (uint256 feeAmount)",
+    "function getPrice(bytes32 id) external view returns (tuple(int64 price, uint64 conf, int32 expo, uint256 publishTime))",
+    "function getPriceUnsafe(bytes32 id) external view returns (tuple(int64 price, uint64 conf, int32 expo, uint256 publishTime))"
+  ]
