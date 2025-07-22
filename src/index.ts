@@ -29,7 +29,7 @@ async function main(): Promise<void> {
     "0x119ff2acf90f68582f5afd6f7d5f12dbae81e4423f165837169d6b94c27fb384", // ALT/USD
     "0x9074ab34363ea1aada15db169f4678c10117e48f1ad1a8ba9f69c2a939c3a377", // AMI/USD
     "0xd37e4513ebe235fff81e453d400debaf9a49a5df2b7faa11b3831d35d7e72cb7", // AMP/USD
-    "0xc311b1d00e78d0e487e57efa12b21e77873985ff68925184fd288bf0fdf2e427"  // AMPL/USD
+    "0xc311b1d00e78d0e487e57efa12b21e77873985ff68925184fd288bf0fdf2e427"  // AMPL/USD. 
   ]
 
   const priceUpdates = await connection.getLatestPriceUpdates(priceIds)
